@@ -18,3 +18,10 @@ Currently the only supported shell is Bash -- contributions for other shells are
        . ~/.bash_completion.d/julia-completion.bash
    fi' >> ~/.bashrc
    ```
+
+This will add completions for the `julia` command. If you want to add completions also
+for other commands/aliases, e.g. `julia-master`, you can simply add
+```
+complete -F _julia julia-master
+```
+to `~/.bashrc` after sourcing the script above.
