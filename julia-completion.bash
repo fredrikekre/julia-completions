@@ -76,7 +76,8 @@ _julia() {
                 --compiled-modules -e --eval -E --print -L --load -t --threads -p --procs \
                 --machine-file -i -q --quiet --banner --color --history-file --depwarn \
                 --warn-overwrite --warn-scope -C --cpu-target -O --optimize -g --inline \
-                --check-bounds --math-mode --code-coverage --track-allocation --bug-report"
+                --check-bounds --code-coverage --track-allocation --bug-report \
+                --pkgimages --interactive --min-optlevel --heap-size-hint"
 
     if [[ "$prev" == "--project" && "${split}" == "true" ]]; then
         # --project completes *Project.toml files and directories
@@ -97,7 +98,7 @@ _julia() {
             "${prev}" == "--history-file" || \
             "${prev}" == "--warn-overwrite" || \
             "${prev}" == "--warn-scope" || \
-            "${prev}" == "--warn-scope" || \
+            "${prev}" == "--pkgimages" || \
             "${prev}" == "--inline" ]]; then
         # These options complete yes/no
         while IFS='' read -r l; do COMPREPLY+=("$l"); done < <(compgen -W "yes no" -- "${cur}")
@@ -113,9 +114,6 @@ _julia() {
     elif [[ "${prev}" == "--depwarn" ]]; then
         # --depwarn completes yes/no/error
         while IFS='' read -r l; do COMPREPLY+=("$l"); done < <(compgen -W "yes no error" -- "${cur}")
-    elif [[ "${prev}" == "--math-mode" ]]; then
-        # --math-mode completes ieee/fast
-        while IFS='' read -r l; do COMPREPLY+=("$l"); done < <(compgen -W "ieee fast" -- "${cur}")
     elif [[ "${prev}" == "--code-coverage" || "${prev}" == "--track-allocation" ]]; then
         # --code-coverage completes none/user/all or a file (but file might not exist so can't give that option)
         while IFS='' read -r l; do COMPREPLY+=("$l"); done < <(compgen -W "none user all" -- "${cur}")
